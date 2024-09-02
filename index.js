@@ -143,11 +143,10 @@ async function createInvoice(page, invoiceAmount) {
     await setCustomerDataAndWait(page);
     await setDescriptionAndAmountAndWait(page, invoiceAmount);
 
-    page.on("dialog", async (dialog) => {
+    page.once("dialog", async (dialog) => {
       await dialog.accept();
     });
-    //await page.click("#btngenerar"); // Confirm invoice
-    //await page.waitForNavigation({ waitUntil: ["networkidle2", "load"] });
+    await page.click("#btngenerar"); // Confirm invoice
 
     const buttons = await page.$$("input");
     await buttons[buttons.length - 1].click(); // Go to main menu
